@@ -1,0 +1,12 @@
+FROM lunarreign/weather-rest:v1
+LABEL MAINTANIER="Luna McBride <luna.mcbride24@gmail.com>"
+
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install --upgrade matplotlib pika requests flask pandas jsonpickle 'google-cloud-bigquery[bqstorage,pandas]'
+
+WORKDIR /srv
+COPY rest-server.py /srv
+
+EXPOSE 5000
+
+CMD ["python3", "rest-server.py"]

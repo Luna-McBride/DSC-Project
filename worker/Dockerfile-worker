@@ -1,0 +1,11 @@
+FROM lunarreign/weather-worker:v1
+LABEL MAINTANIER="Luna McBride <luna.mcbride24@gmail.com>"
+
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install pika pyarrow requests flask pandas jsonpickle 'google-cloud-bigquery[bqstorage,pandas]'
+
+WORKDIR /srv
+COPY worker-server.py /srv
+COPY secrets.txt /srv
+
+CMD ["python3", "worker-server.py"]
